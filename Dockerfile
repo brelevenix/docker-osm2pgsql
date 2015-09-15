@@ -7,6 +7,7 @@ MAINTAINER James Badger <james@jamesbadger.ca>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y \
+    curl \
     autoconf \
     automake \
     g++ \
@@ -26,6 +27,7 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     lua5.2 \
     make \
+    postgresql-client \
     protobuf-c-compiler &&\
     rm -rf /var/lib/apt/lists/*
 
@@ -42,5 +44,12 @@ RUN mkdir src &&\
     make install &&\
     cd /root &&\
     rm -rf src
+
+ENV START_CMD="osm2pgsql --create --slim --cache 2000 --database gis --username osm --host pg --port 5432 /osm/import.osm.pbf"
+ENV DB_HOST="pg"
+ENV DB_PORT="5432"
+
+ADD ./start.sh /etc/start.sh
+
 
 ENTRYPOINT ["/bin/bash"]
