@@ -45,11 +45,13 @@ RUN mkdir src &&\
     cd /root &&\
     rm -rf src
 
-ENV START_CMD="osm2pgsql --create --slim --cache 2000 --database gis --username osm --host pg --port 5432 /osm/import.osm.pbf"
+ADD ./start.sh /etc/start.sh
+ADD ./end.sh /etc/end.sh
+
+ENV START_CMD="/bin/bash /etc/end.sh"
 ENV DB_HOST="pg"
 ENV DB_PORT="5432"
 
-ADD ./start.sh /etc/start.sh
 
 
 ENTRYPOINT ["/bin/bash"]
