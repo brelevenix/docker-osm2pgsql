@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #main command
-osm2pgsql --create --slim --cache 6000 --number-processes 4 --database gis --username osm --host pg --port 5432 /osm/import.osm.pbf
+osm2pgsql --create --slim --cache 12000 --number-processes 4 --database gis --username osm --host pg --port 5432 /osm/import.osm.pbf
 
 #command must be executed just once
 touch initialized 
