@@ -11,7 +11,7 @@ RAM=$(grep 'MemTotal' /proc/meminfo | perl -pe "s/.*: (.+) .*/\1/")
 CACHE=$(($RAM * 3 / 4000))
 echo $CACHE > /var/lib/start/ram.txt
 
-osm2pgsql --create --slim --cache $CACHE --number-processes $PROCS --flat-nodes flat-nodes --database gis --username osm --host pg --port 5432 /osm/import.osm.pbf
+osm2pgsql --create --slim --drop --cache $CACHE --number-processes $PROCS --flat-nodes flat-nodes --database gis --username osm --host pg --port 5432 /osm/import.osm.pbf
 
 #command must be executed just once
 touch initialized 
