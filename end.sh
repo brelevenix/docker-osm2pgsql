@@ -9,7 +9,7 @@ echo $CORES
 
 #get RAM and keep 3/4 for cache
 RAM=$(grep 'MemTotal' /proc/meminfo | perl -pe "s/.*: (.+) .*/\1/")
-CACHE=$(($RAM * 3 / 40000))
+CACHE=$(($RAM * 3 / 4000))
 echo "CACHE: "
 echo $CACHE
 
