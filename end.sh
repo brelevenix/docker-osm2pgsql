@@ -1,7 +1,15 @@
 #!/bin/sh
 
 #main command
-osm2pgsql --create --slim --cache 12000 --number-processes 4 --database gis --username osm --host pg --port 5432 /osm/import.osm.pbf
+
+#get core
+CORES=$(grep 'cpu cores' /proc/cpuinfo | perl -pe "s/.*: //")
+
+#get RAM and keep 3/4 for cache
+RAM=$(grep 'MemTotal' /proc/meminfo | perl -pe "s/.*: (.+) .*/\1/")
+CACHE=$(($RAM * 3 / 4))
+
+osm2pgsql --create --slim --cache $RAM --number-processes $CORES --database gis --username osm --host pg --flat-nodes node.cache --port 5432 /osm/import.osm.pbf
 
 #command must be executed just once
 touch initialized 
