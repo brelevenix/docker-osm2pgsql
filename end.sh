@@ -13,7 +13,7 @@ CACHE=$(($RAM * 3 / 40000))
 echo "CACHE: "
 echo $CACHE
 
-osm2pgsql --create --slim --cache $CACHE --number-processes $CORES --database gis --username osm --host pg --flat-nodes node.cache --port 5432 /osm/import.osm.pbf
+osm2pgsql --create --slim --cache $CACHE --number-processes $CORES --database gis --username osm --host pg --port 5432 /osm/import.osm.pbf
 
 #command must be executed just once
 touch initialized 
