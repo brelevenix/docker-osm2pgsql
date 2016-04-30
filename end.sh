@@ -1,17 +1,7 @@
 #!/bin/sh
 
-#main command
-
-#get core
-PROCS=$(grep --count ^processor /proc/cpuinfo)
-echo $PROCS > /var/lib/start/procs.txt
-
-#get RAM and keep 3/4 for cache
-RAM=$(grep 'MemTotal' /proc/meminfo | perl -pe "s/.*: (.+) .*/\1/")
-CACHE=$(($RAM * 3 / 4000))
-echo $CACHE > /var/lib/start/ram.txt
-
-osm2pgsql --create --slim --drop --cache $CACHE --number-processes $PROCS --flat-nodes flat-nodes --database gis --username osm --host pg --port 5432 /osm/import.osm.pbf
+#import command
+sudo sh /osm/import.sh
 
 #command must be executed just once
 touch initialized 
